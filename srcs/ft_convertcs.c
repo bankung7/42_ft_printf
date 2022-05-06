@@ -6,7 +6,7 @@
 /*   By: vnilprap <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/29 12:56:52 by vnilprap          #+#    #+#             */
-/*   Updated: 2022/05/04 17:17:12 by vnilprap         ###   ########.fr       */
+/*   Updated: 2022/05/06 17:01:47 by vnilprap         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #include <stdio.h>
@@ -32,7 +32,7 @@ int	ft_convertc(va_list list, t_node *block)
 	return (1);
 }
 
-static char	*ft_gets(t_node *block, va_list list)
+static char	*ft_getcs(t_node *block, va_list list)
 {
 	char	*p;
 	char	*s;
@@ -62,7 +62,7 @@ int	ft_converts(va_list list, t_node *block)
 
 	i = 0;
 	sp = 0;
-	s = ft_gets(block, list);
+	s = ft_getcs(block, list);
 	if (s != 0 && (int)ft_strlen(s) > block->width)
 		block->width = (int)ft_strlen(s);
 	if (s != 0 && block->width >= (int)ft_strlen(s))

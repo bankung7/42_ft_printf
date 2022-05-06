@@ -6,7 +6,7 @@
 /*   By: vnilprap <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/29 12:30:13 by vnilprap          #+#    #+#             */
-/*   Updated: 2022/05/04 09:47:33 by vnilprap         ###   ########.fr       */
+/*   Updated: 2022/05/06 16:50:29 by vnilprap         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,6 +27,26 @@ t_node	*ft_setnode(void)
 	block->width = 0;
 	block->precision = -1;
 	return (block);
+}
+
+char	*ft_itoa_base(unsigned int n, int base)
+{
+	int		i;
+	char	*s;
+
+	i = ft_geti(n, base);
+	s = ft_calloc(sizeof(char), i + 1);
+	if (n == 0)
+		s[0] = '0';
+	else
+	{
+		while (n > 0)
+		{
+			s[--i] = "0123456789abcdef"[n % base];
+			n /= base;
+		}
+	}
+	return (s);
 }
 
 int	ft_putchar(const char c)

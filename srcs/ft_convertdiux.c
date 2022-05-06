@@ -6,55 +6,49 @@
 /*   By: vnilprap <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/01 20:55:38 by vnilprap          #+#    #+#             */
-/*   Updated: 2022/05/04 12:12:23 by vnilprap         ###   ########.fr       */
+/*   Updated: 2022/05/06 16:51:26 by vnilprap         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/ft_printf.h"
-#include "../libft/libft.h"
 
-static	char	*ft_itoa_base(unsigned int n, int base)
+static int	ft_predi(t_node *block, char *s, int sign, int sp)
 {
-	int		i;
-	char	*s;
-
-	i = ft_geti(n, base);
-	s = ft_calloc(sizeof(char), i + 1);
-	if (n == 0)
-		s[0] = '0';
-	else
+	if ((int)ft_strlen(s) > block->width)
+		block->width = (int)ft_strlen(s);
+	if (block->precision + sign > block->width)
+		block->width = block->precision + sign;
+	if (block->precision != -1 && block->width > block->precision + sign)
 	{
-		while (n > 0)
-		{
-			s[--i] = "0123456789abcdef"[n % base];
-			n /= base;
-		}
+		block->zero = 0;
+		sp = block->width - block->precision - sign;
 	}
-	return (s);
-}
-
-static void	ft_pre(t_node *block, char *s, int sp, char type)
-{
-	if (type == 'X')
-		ft_toupperx(s);
-	if (s[0] == '-' && block->zero == 1)
-		ft_putchar('-');
-	if (block->sign == 1 && s[0] != '-' && type == 'd')
-		ft_putchar('+');
-	if (block->space == 1 && block->sign == 0 && s[0] != '-' && type == 'd')
-		ft_putchar(' ');
+	if (block->precision != -1 && (int)ft_strlen(s) > block->precision + sign)
+		sp -= ((int)ft_strlen(s) - block->precision - sign);
+	if (block->precision == -1 && block->width > (int)ft_strlen(s))
+		sp = block->width - (int)ft_strlen(s);
 	while (block->left == 0 && block->zero == 0 && sp-- > 0)
 		ft_putchar(' ');
-	if (block->prefix == 1 && type == 'x' && s[0] != '0')
-		ft_putstr("0x");
-	else if (block->prefix == 1 && type == 'X' && s[0] != '0')
-		ft_putstr("0X");
-	while (block->left == 0 && block->zero == 1 && sp-- > 0)
+	if (s[0] == '-' || s[0] == '+' || s[0] == ' ')
+		ft_putchar(s[0]);
+	if (block->precision > (int)ft_strlen(s) - sign)
+	{
+		block->zero = 1;
+		sp = block->precision - (int)ft_strlen(s) + sign;
+	}
+	while (block->zero == 1 && sp-- > 0)
 		ft_putchar('0');
-	if (s[0] == '-' && block->zero == 1)
-		ft_putstr(&s[1]);
-	else
-		ft_putstr(s);
+	return (sp);
+}
+
+static void	ft_post(t_node *block, char *s, int sign, int sp)
+{
+	if ((int)ft_strlen(s) < block->precision
+		&& block->precision != -1 && block->width > block->precision + sign)
+		sp = block->width - block->precision - sign;
+	if (block->precision == -1 && block->width > (int)ft_strlen(s)
+		&& block->left == 1)
+		sp = block->width - (int)ft_strlen(s);
 	while (block->left == 1 && sp-- > 0)
 		ft_putchar(' ');
 }
@@ -64,9 +58,16 @@ int	ft_convertux(va_list list, t_node *block, int base, char type)
 	int		prefix;
 	int		sp;
 	char	*s;
+	char	*p;
 
 	prefix = 0;
+	sp = 0;
 	s = ft_itoa_base(va_arg(list, unsigned int), base);
+	if (block->precision != -1 && s[0] == '0')
+	{
+		free(s);
+		s = ft_strdup("");
+	}
 	if (block->prefix == 1 && (type == 'x' || type == 'X') && s[0] != '0')
 		prefix = 2;
 	if (block->precision > block->width)
@@ -76,15 +77,42 @@ int	ft_convertux(va_list list, t_node *block, int base, char type)
 		block->zero = 1;
 		block->width = block->precision;
 	}
-	if ((int)ft_strlen(s) + prefix > block->width)
-		block->width = (int)ft_strlen(s) + prefix;
-	sp = block->width - (int)ft_strlen(s) - prefix;
-	if (block->precision == 0 && s[0] == '0')
-		block->width = 0;
+	if ((type == 'x' || type == 'X') && block->prefix != 0 && s[0] != '0')
+	{
+		p = ft_strjoin("0x", s);
+		free(s);
+		s = p;
+	}
+	if (type == 'X')
+		ft_toupperx(s);
+	sp = ft_predi(block, s, prefix, sp);
+	if ((type == 'x' || type == 'X') && block->prefix != 0)
+		ft_putstr(s);
 	else
-		ft_pre(block, s, sp, type);
+		ft_putstr(&s[prefix]);
+	ft_post(block, s, prefix, sp);
 	free(s);
 	return (1);
+}
+
+static char	*ft_gets(t_node *block, char *s)
+{
+	char	*p;
+
+	p = 0;
+	if (s[0] != '-' && block->sign == 1)
+	{
+		p = ft_strjoin("+", s);
+		free(s);
+		s = p;
+	}
+	else if (s[0] != '-' && block->sign == 0 && block->space == 1)
+	{
+		p = ft_strjoin(" ", s);
+		free(s);
+		s = p;
+	}
+	return (s);
 }
 
 int	ft_convertdi(va_list list, t_node *block)
@@ -94,24 +122,20 @@ int	ft_convertdi(va_list list, t_node *block)
 	char	*s;
 
 	sign = 0;
+	sp = 0;
 	s = ft_itoa(va_arg(list, int));
-	if ((block->sign == 1 || block->space == 1) && s[0] != '-')
-		sign = 1;
-	if (block->precision > block->width)
+	if (s[0] == '0' && block->precision == 0)
 	{
-		if (s[0] == '-')
-			block->precision += 1;
-		block->left = 0;
-		block->zero = 1;
-		block->width = block->precision;
+		free(s);
+		s = ft_strdup("");
+		block->zero = 0;
 	}
-	if ((int)ft_strlen(s) + sign > block->width)
-		block->width = (int)ft_strlen(s) + sign;
-	sp = block->width - (int)ft_strlen(s) - sign;
-	if (block->precision == 0 && s[0] == '0')
-		block->width = 0;
-	else
-		ft_pre(block, s, sp, 'd');
+	s = ft_gets(block, s);
+	if (s[0] == '-' || block->space == 1 || block->sign == 1)
+		sign = 1;
+	sp = ft_predi(block, s, sign, sp);
+	ft_putstr(&s[sign]);
+	ft_post(block, s, sign, sp);
 	free(s);
 	return (1);
 }

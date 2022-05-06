@@ -6,7 +6,7 @@
 /*   By: vnilprap <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/29 12:56:52 by vnilprap          #+#    #+#             */
-/*   Updated: 2022/05/04 12:21:04 by vnilprap         ###   ########.fr       */
+/*   Updated: 2022/05/04 17:17:12 by vnilprap         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #include <stdio.h>
@@ -43,11 +43,12 @@ static char	*ft_gets(t_node *block, va_list list)
 		s = ft_strdup("(null)");
 	else
 		s = ft_strdup(s);
-	if ((int)ft_strlen(s) > block->width)
-		block->width = (int)ft_strlen(s);
-	if (block->width < block->precision && block->precision != -1)
-		block->width = block->precision;
-	p = ft_substr(s, 0, block->width);
+	if (block->precision != -1)
+		p = ft_substr(s, 0, block->precision);
+	else
+		p = ft_substr(s, 0, (int)ft_strlen(s));
+	if ((int)ft_strlen(p) > block->width)
+		block->width = (int)ft_strlen(p);
 	if (s != 0)
 		free(s);
 	return (p);

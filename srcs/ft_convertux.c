@@ -6,7 +6,7 @@
 /*   By: vnilprap <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/01 20:55:38 by vnilprap          #+#    #+#             */
-/*   Updated: 2022/05/06 17:31:43 by vnilprap         ###   ########.fr       */
+/*   Updated: 2022/05/11 15:49:15 by vnilprap         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,8 @@ static char	*ft_getux(t_node *block, char *s, char type)
 		free(s);
 		s = ft_strdup("");
 	}
-	if ((type == 'x' || type == 'X') && block->prefix != 0 && s[0] != '0')
+	if ((type == 'x' || type == 'X') && block->prefix != 0
+		&& s[0] != '0' && (int)ft_strlen(s) != 0)
 	{
 		p = ft_strjoin("0x", s);
 		free(s);
@@ -43,7 +44,7 @@ int	ft_convertux(va_list list, t_node *block, int base, char type)
 	sp = 0;
 	s = ft_itoa_base(va_arg(list, unsigned int), base);
 	s = ft_getux(block, s, type);
-	if (block->prefix == 1 && (type == 'x' || type == 'X') && s[0] != '0')
+	if (block->prefix == 1 && (type == 'x' || type == 'X') && ft_strlen(s) > 0)
 		prefix = 2;
 	if (block->precision > block->width)
 	{
@@ -53,10 +54,7 @@ int	ft_convertux(va_list list, t_node *block, int base, char type)
 		block->width = block->precision;
 	}
 	sp = ft_pre(block, s, prefix, sp);
-	if ((type == 'x' || type == 'X') && block->prefix != 0)
-		ft_putstr(s);
-	else
-		ft_putstr(&s[prefix]);
+	ft_putstr(s);
 	ft_post(block, s, prefix, sp);
 	free(s);
 	return (1);

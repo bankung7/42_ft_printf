@@ -6,10 +6,9 @@
 /*   By: vnilprap <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/29 10:57:56 by vnilprap          #+#    #+#             */
-/*   Updated: 2022/05/06 13:56:10 by vnilprap         ###   ########.fr       */
+/*   Updated: 2022/05/17 21:02:40 by vnilprap         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
-#include <stdio.h>
 #include "../includes/ft_printf.h"
 
 int	ft_printf(const char *str, ...)

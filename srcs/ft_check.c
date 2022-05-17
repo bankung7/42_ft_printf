@@ -6,10 +6,9 @@
 /*   By: vnilprap <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/29 12:00:50 by vnilprap          #+#    #+#             */
-/*   Updated: 2022/05/06 17:16:07 by vnilprap         ###   ########.fr       */
+/*   Updated: 2022/05/17 20:58:15 by vnilprap         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
-#include <stdio.h>
 #include "../includes/ft_printf.h"
 
 static int	ft_gettype(const char *str, va_list list, t_node *block)

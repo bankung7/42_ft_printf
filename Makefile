@@ -1,8 +1,22 @@
+# **************************************************************************** #
+#                                                                              #
+#                                                         :::      ::::::::    #
+#    Makefile                                           :+:      :+:    :+:    #
+#                                                     +:+ +:+         +:+      #
+#    By: vnilprap <marvin@42.fr>                    +#+  +:+       +#+         #
+#                                                 +#+#+#+#+#+   +#+            #
+#    Created: 2022/05/17 21:12:05 by vnilprap          #+#    #+#              #
+#    Updated: 2022/05/17 21:17:23 by vnilprap         ###   ########.fr        #
+#                                                                              #
+# **************************************************************************** #
+
 NAME = libftprintf.a
 
 INCDS = includes/ft_printf.h
 
-SRCS = $(wildcard srcs/ft*.c)
+SRCS = srcs/ft_check.c srcs/ft_convertcs.c srcs/ft_convertdi.c \
+       srcs/ft_convertp.c srcs/ft_convertux.c srcs/ft_printf.c srcs/ft_util.c \
+       srcs/ft_util2.c
 
 LIBFT = libft
 

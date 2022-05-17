@@ -6,10 +6,9 @@
 /*   By: vnilprap <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/29 12:30:13 by vnilprap          #+#    #+#             */
-/*   Updated: 2022/05/06 16:50:29 by vnilprap         ###   ########.fr       */
+/*   Updated: 2022/05/17 21:00:41 by vnilprap         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
-
 #include "../includes/ft_printf.h"
 
 t_node	*ft_setnode(void)

@@ -6,10 +6,9 @@
 /*   By: vnilprap <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/01 20:55:38 by vnilprap          #+#    #+#             */
-/*   Updated: 2022/05/11 15:32:12 by vnilprap         ###   ########.fr       */
+/*   Updated: 2022/05/17 21:01:17 by vnilprap         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
-
 #include "../includes/ft_printf.h"
 
 int	ft_pre(t_node *block, char *s, int sign, int sp)

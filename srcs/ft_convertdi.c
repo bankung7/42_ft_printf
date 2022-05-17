@@ -6,10 +6,9 @@
 /*   By: vnilprap <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/01 20:55:38 by vnilprap          #+#    #+#             */
-/*   Updated: 2022/05/06 17:22:05 by vnilprap         ###   ########.fr       */
+/*   Updated: 2022/05/17 20:58:55 by vnilprap         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
-
 #include "../includes/ft_printf.h"
 
 static char	*ft_getdi(t_node *block, char *s)

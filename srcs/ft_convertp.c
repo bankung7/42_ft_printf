@@ -6,10 +6,9 @@
 /*   By: vnilprap <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/01 20:22:03 by vnilprap          #+#    #+#             */
-/*   Updated: 2022/05/03 15:14:06 by vnilprap         ###   ########.fr       */
+/*   Updated: 2022/05/17 20:59:37 by vnilprap         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
-#include <stdio.h>
 #include "../includes/ft_printf.h"
 #include "../libft/libft.h"
 

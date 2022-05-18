@@ -6,7 +6,7 @@
 /*   By: vnilprap <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/01 20:22:03 by vnilprap          #+#    #+#             */
-/*   Updated: 2022/05/17 20:59:37 by vnilprap         ###   ########.fr       */
+/*   Updated: 2022/05/18 21:58:42 by vnilprap         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #include "../includes/ft_printf.h"
@@ -63,9 +63,17 @@ int	ft_convertp(va_list list, t_node *block)
 	if ((int)ft_strlen(s) + 2 > block->width)
 		block->width = (int)ft_strlen(s) + 2;
 	sp = block->width - (int)ft_strlen(s) - 2;
-	while (block->left == 0 && sp-- > 0)
+	while (block->left == 0 && block->zero == 0 && sp > 0)
+	{
+		sp--;
 		ft_putchar(' ');
+	}
 	ft_putstr("0x");
+	while (block->left == 0 && block->zero == 1 && sp > 0)
+	{
+		sp--;
+		ft_putchar('0');
+	}
 	ft_putstr(s);
 	free(s);
 	while (block->left == 1 && sp-- > 0)

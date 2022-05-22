@@ -6,7 +6,7 @@
 /*   By: vnilprap <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/29 10:57:56 by vnilprap          #+#    #+#             */
-/*   Updated: 2022/05/17 21:02:40 by vnilprap         ###   ########.fr       */
+/*   Updated: 2022/05/22 09:02:25 by vnilprap         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #include "../includes/ft_printf.h"
@@ -35,5 +35,6 @@ int	ft_printf(const char *str, ...)
 		else
 			len += ft_putchar(*(str++));
 	}
+	va_end(list);
 	return (len);
 }
